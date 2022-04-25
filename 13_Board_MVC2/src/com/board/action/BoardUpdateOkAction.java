@@ -1,0 +1,62 @@
+package com.board.action;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.board.model.BoardDAO;
+import com.board.model.BoardDTO;
+
+public class BoardUpdateOkAction implements Action {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		int board_no = Integer.parseInt(request.getParameter("no").trim());
+		String db_pwd = request.getParameter("db_pwd").trim();
+		
+		String board_writer = request.getParameter("writer").trim();
+		
+		String board_title = request.getParameter("title").trim();
+		
+		String board_cont = request.getParameter("content").trim();
+		
+		String board_pwd = request.getParameter("pwd").trim();
+		
+		
+		BoardDTO dto = new BoardDTO();
+		dto.setBoard_no(board_no);
+		dto.setBoard_writer(board_writer);
+		dto.setBoard_title(board_title);
+		dto.setBoard_cont(board_cont);
+		dto.setBoard_pwd(board_pwd);
+		
+		BoardDAO dao = BoardDAO.getInstance();
+		
+		PrintWriter out = response.getWriter();
+		
+		if(db_pwd.equals(dto.getBoard_pwd())) {
+			int check = dao.updateBoard(dto);
+			if(check>0) {
+				out.println("<script>");
+				out.println("alert('게시물 수정 성공!!')");
+				out.println("location.href='board_cont.do?no="+dto.getBoard_no()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('게시물 수정 실패~~')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}else {
+			out.println("<script>");
+			out.println("alert('비밀번호가 틀립니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+	}
+
+}

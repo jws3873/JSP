@@ -1,0 +1,15 @@
+#Action Class
+board_list.do = execute|com.board2.action.BoardListAction
+board_write_ok.do = execute|com.board2.action.BoardWriteOkAction
+board_content.do = execute|com.board2.action.BoardContentAction
+board_update.do = execute|com.board2.action.BoardUpdateAction
+board_update_ok.do = execute|com.board2.action.UpdateOkAction
+board_delete_ok.do = execute|com.board2.action.DeleteOkAction
+board_search.do = execute|com.board2.action.BoardSearchAction
+
+
+
+#view page
+board_write.do = view/board_write.jsp
+board_delete.do = view/board_delete.jsp
+

@@ -1,0 +1,164 @@
+오라클 설치과정 
+
+계정생성방법
+오라클_설치화면 파일
+create user 계정명 identified by 비밀번호; 라고 작성하여 계정 생성을 진행.
+• grant connect, resource, dba to 계정명; 이라고 작성하여 권한을 부여함.
+권한설정 등등
+
+
+데이터 베이스 파일
+sql종류
+dql이 selct,delete등임
+
+
+데이터 베이스 구현 18페이지 자체교체
+
+테이블생성 방식
+
+
+문제해결 시나리오
+계정 생성, 권한
+
+테이블 생성시 제약조건
+
+
+36page자체교체 컬럼레벨 참조규칙
+
+
+refereances
+
+38page 테이블 레벨 참조규칙
+
+서술형
+dbms란 무었인가
+데이터 베이스 관리자 계정, 사용자 계정
+
+제약조건에 관하여 서술
+외래키 제약조건
+40~41
+on delete
+ON DELETE [CASCADE/SET NULL] 연산자를 통해 기본키가 삭제될 경우 같이 삭제된다. 외래키로 지정된 기본키를 삭제하는 경우, 외래키의 참조무결성에 의해 기본키를 삭제할 수 없다. 그 번거로움을 덜기 위해서 외래키를 설정할 때, 기본키 삭제시 따라 삭제 또는 NULLABLE로 제약조
+건을 변경할 수 있다.
+
+39page not null, unique등의 제약조건
+
+
+오라클 설치화면
+14~15p
+계정 생성 방법 코드 두줄
+권한설정 설명 connect, resource, dba
+
+교재 4.데이터베이스 구현
+36~38p
+테이블 생성, 제약조건
+제약조건 컬럼, table 레벨에서 작성하는 법
+
+40~41p
+외래키 on delete cascade/ setnull
+
+42p~
+컬럼추가/이름변경/수정/삭제
+
+데이터베이스 ppt
+p14
+
+
+
+
+
+[요구사항]
+
+* 관리자 계정으로 접속하여 계정명 'test01', 비밀번호 '1234' 의 사용자 계정 생성
+
+* test01 계정에 DB 접속 및 객체 생성 권한 부여
+
+* 생성한 사용자 계정으로 접속하여 MEMBERS, BOARDS 테이블 생성
+
+- MEMBERS 테이블
+
+1) MEMBER_ID 컬럼에 PRIMARY KEY 제약조건 설정.
+
+2) MEMBER_PWD 컬럼에 NOT NULL 제약조건 설정.
+
+- BOARDS 테이블
+
+1) BOARD_NO 컬럼에 PRIMARY KEY 제약조건 설정.
+
+2) BOARD_WRITER 컬럼에 MEMERS 테이블의 MEMBER_ID를 참조하는 FOREIGN KEY 제약조건 설정.
+
+3) BOARD_REG_DATE(작성일) 컬럼에 기본값 SYSDATE 설정
+
+
+원인
+
+1.
+사용자 계정 생성방법 오류
+
+CREATE test01 IDENTIFIED BY 1234;
+
+GRANT RESOURCE TO test01;
+
+윈도우 명령프롬프트(CMD)를 통해 계정을 생성하기위한 명령어 입력이 잘못되었다.
+정확한 명령어를 수정하여 입력할 필요가 있다.
+
+
+2. -- MEMBERS 테이블 생성
+
+CREATE TABLE MEMBERS(
+
+MEMBER_ID VARCHAR2(20),
+
+MEMBER_PWD VARCHAR2(20),
+
+MEMBER_NAME VARCHAR2(30),
+
+MEMBER_AGE NUMBER,
+
+MEMBER_EMAIL VARCHAR2(50),
+
+CONSTRAINT PRIMARY KEY(MEMBER_ID),
+
+NOT NULL(MEMBER_PWD)
+
+);
+
+2-1not null 조건은 테이블 레벨에서 작성할 수 없으며 컬럼레벨에서 작성하여야 한다 또는 modify 키워드를 통해 수정 가능
+2-2 테이블레벨에서 작성하는 경우 CONSTRAINT 키워드 뒤에 추가적인 키워드가 들어가야 한다 그
+예) CONSTRAINT pk_MEMBERS ,CONSTRAINT fk_MEMBERS 이후 제약조건(컬럼명)이 기입된다.
+
+
+
+3.
+-- BOARDS 테이블 생성
+
+CREATE TABLE BOARDS(
+
+BOARD_NO NUMBER PRIMARY KEY,
+
+BOARD_TITLE VARCHAR2(100),
+
+BOARD_CONTENT VARCHAR2(4000),
+
+BOARD_WRITER VARCHAR2(20) FOREIGN KEY MEMBERS(MEMBER_ID),
+
+BOARD_REG_DATE DATE DEFAULT SYSDATE
+
+);
+3-1
+BOARD_WRITER  컬럼에 외래키를 지정하고 MEMERS 테이블의 MEMBER_ID를 참조하는 FOREIGN KEY 제약조건 설정.
+하려고 한다 하지만 외래키 지정과 참조를 위한 references키워드가 빠져있다.
+컬럼레벨에서 외래키를 지정하는 방식과 테이블에서 지정하는 방식이 다르다.
+
+관리자 계정: 즉 Super User.
+sys, system 두 가지의 계정을 기본적으로 갖고 있으며,
+데이터베이스 생성 권한은 sys만 가지고 있으며 system은 가지고 있지 않다.
+그 외 CRUD에 필요한 모든 권한을 다 가지고 있다.
+또한 이러한 권한을 사용자 계정에 부여할 수 있다.
+DDL인 grant를 통해 권한을 부여하고, revoke를 통해 회수할 수 있다.
+
+관리자 계정(Administrator) 계정이란 Database 생성과 관리를 담당하며, DB에 대한 모든 권한과 책임을 지는 계정이다.
+또한 사용자(user) 계정은 General User Account라고 부르며, Database에 대한 Query(질의), 갱신, 보고서 작성 등의 작업을 수행할 수 있는 계정이다. 이는 보안상 업무에 필요한 최소한의 권한만 가지는 것을 원칙으로 한다.
+
+관리자 계정으로부터 권한을 부여받아야 해당 작업을 할 수 있다.
+(데이터베이스 보안성 향상)

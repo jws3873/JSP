@@ -1,0 +1,391 @@
+package kr.or.iei.run;<<<start
+package kr.or.iei.vo;<<User
+package kr.or.iei.func;<<<Exam
+
+1.Exam calss,User Class (인자 생성자의 부재)
+
+
+User user1 = new User("user01", "1234", "유저1", 23, "01022478875");
+
+
+
+User user2 = new User("user02", "1357", "유저2", 27, "01095887774");
+
+
+
+User user3 = new User("user03", "2468", "유저3", 34, "01036425456");​
+
+​
+
+User형식의 객체 생성시 인자값을 통하여 객체를 생성하기 위해서는 User클래스에서
+
+기본 생성자 이외에 id,pw,name,age,phone 형식에 맞는 인자가 들어갈 수 있는 생성자가 필요하다.
+
+이를위해 User​클래스에서 인자 생성자를 추가해 주어야 한다.
+
+
+
+2. Exam calss (ArrayList 메서드의 잘못된 사용)​
+
+
+userList.put(user1);
+
+userList.put(user2);
+
+userList.put(user3);
+
+​ArrayList ​메서드를 통해여 userList​참조변수 안에 객체를 추가해주어야 하지만 put() 메서드는 Map 컬렉션 클래스에서 사용되는 메서드이다. 올바른 메서드로 변경할 필요가 있다.
+
+
+
+3. Exam calss (​fot문의 반복문 조건 오류)​
+
+
+
+for(int i=0;i<userList.length;i++)
+
+반복문을 진행하기 위해 i값을 증가시킬때 i가 userList​크기 이하로 반복시키는 조건이다.
+
+하지만 userList.length​로 조건이 주어지면 ​ userList​는 배열이 아니기 때문에 이와같은 메서드를 정의할 수 없다.
+
+
+
+4. Exam calss (화면에 객체멤버를 출력하는 코드 오류​)
+
+
+
+System.out.println(u.setId()+"\t"+u.setPw()+"\t"+u.setName()+"\t"+u.setAge()+"\t"+u.setPhone());
+
+객체의 참조변수를 통해 객체 멤버를 가져와 출력하여야 한다.하지만 setter메서드를 이용하여 화면에 출력할
+
+수는 없으며 해당 메서드는 캡슐화 된 객체의변수를 초기화하기 위해 사용하는 메서드로 올바른 메서드를 정의하여야 한다.
+
+
+
+
+1.Exam calss,User Class (인자 생성자의 부재)​
+public User() {
+
+super();​
+
+}​
+
+public User(String id,String pw,String name,int age,String phone ) {
+
+​super();
+
+this.id = id;
+
+this.pw = pw;
+
+this.name = name;
+
+this.age = age;
+
+this.phone = phone;
+
+}
+
+답) User클래스에서 기존에 존재하던 기본생성자 이외에 인자생성자를 추가로 작성하여 준다.
+
+
+
+
+2. Exam calss (ArrayList 메서드의 잘못된 사용)​
+
+변경전
+
+userList.put(user1);
+
+userList.put(user2);
+
+userList.put(user3);
+
+변경후
+
+userList.add(user1);
+
+userList.add(user2);
+
+userList.add(user3);
+
+답) put메서드 대신 add메서드 사용을 통하여 객체를 userList​에 추가하여 준다.
+
+
+
+
+
+3. Exam calss (​fot문의 반복문 조건 오류)​
+
+변경전
+
+for(int i=0;i<userList.length;i++)
+변경후
+
+(int i=0;i<userList.size();i++)
+답) length메서드 대신 size()메서드를 사용하여 조건문을 수정해 준다.
+
+
+
+​
+
+4. Exam calss (화면에 객체멤버를 출력하는 코드 오류​)
+
+변경전
+
+System.out.println(u.setId()+"\t"+u.setPw()+"\t"+u.setName()+"\t"+u.setAge()+"\t"+u.setPhone());
+변경후
+
+System.out.println(u.getId()+"\t"+u.getPw()+"\t"+u.getName()+"\t"+u.getAge()+"\t"+u.getPhone());
+답) set메서드 대신 get메서드를 사용하여 출력문을 수정해 준다.
+
+
+
+
+
+
+
+
+
+1-1 답안
+User클래스의 기본생성자는 기본으로 생성되어 있으며 클래스 내에서 명시되어 있다.
+	public User() {
+
+	super();
+
+	}
+Exam 클래스에서 인자값을 받아 멤버를 초기화 하기 위해서인자생성자를 추가하여 준다. 이때 전달받은 인자로 User클래스의 멤버를 초기화
+public User(String id,String pw,String name,int age,String phone ) {
+	super();
+	this.id = id;
+	this.pw = pw;
+	this.name = name;
+	this.age = age;
+	this.phone = phone;
+	}
+
+1-2. 답안
+userList.put(user1);
+
+userList.put(user2);
+
+userList.put(user3);
+아래와 같이 ArrayList메서드로 변경해 준다.
+userList.add(user1);
+
+userList.add(user2);
+
+userList.add(user3);
+
+
+
+
+1-3. Exam calss
+for(int i=0;i<userList.length;i++) {
+
+User u = userList.get(i);
+
+System.out.println(u.setId()+"\t"+u.setPw()+"\t"+u.setName()+"\t"+u.setAge()+"\t"+u.setPhone());
+
+}
+for문의 조건식을 이와 같이 변경하여 준다. : for(int i=0;i<userList.size();i++) 
+
+
+
+1-4. Exam calss
+System.out.println(u.setId()+"\t"+u.setPw()+"\t"+u.setName()+"\t"+u.setAge()+"\t"+u.setPhone());
+
+System.out.println(u.getId()+"\t"+u.getPw()+"\t"+u.getName()+"\t"+u.getAge()+"\t"+u.getPhone());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Start.java
+
+package kr.or.iei.run;
+
+import kr.or.iei.func.Exam;
+
+public class Start {
+
+public static void main(String[] args) {
+
+Exam e = new Exam();
+
+e.exam1();
+
+}
+
+}
+
+2. User.java
+
+package kr.or.iei.vo;
+
+public class User {
+
+private String id;
+
+private String pw;
+
+private String name;
+
+private int age;
+
+private String phone;
+
+public User() {
+
+super();
+
+}
+
+public String getId() {
+
+return id;
+
+}
+
+public void setId(String id) {
+
+this.id = id;
+
+}
+
+public String getPw() {
+
+return pw;
+
+}
+
+public void setPw(String pw) {
+
+this.pw = pw;
+
+}
+
+public String getName() {
+
+return name;
+
+}
+
+public void setName(String name) {
+
+this.name = name;
+
+}
+
+public int getAge() {
+
+return age;
+
+}
+
+public void setAge(int age) {
+
+this.age = age;
+
+}
+
+public String getPhone() {
+
+return phone;
+
+}
+
+public void setPhone(String phone) {
+
+this.phone = phone;
+
+}
+
+}
+
+3. Exam.java
+
+package kr.or.iei.func;
+
+import java.util.ArrayList;
+
+import kr.or.iei.vo.User;
+
+public class Exam {
+
+public void exam1() {
+
+ArrayList<User> userList = new ArrayList<User>();
+
+User user1 = new User("user01", "1234", "유저1", 23, "01022478875");
+
+User user2 = new User("user02", "1357", "유저2", 27, "01095887774");
+
+User user3 = new User("user03", "2468", "유저3", 34, "01036425456");
+
+userList.put(user1);
+
+userList.put(user2);
+
+userList.put(user3);
+
+System.out.println("아이디\t비밀번호\t이름\t나이\t전화번호");
+
+for(int i=0;i<userList.length;i++) {
+
+User u = userList.get(i);
+
+System.out.println(u.setId()+"\t"+u.setPw()+"\t"+u.setName()+"\t"+u.setAge()+"\t"+u.setPhone());
+
+}
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

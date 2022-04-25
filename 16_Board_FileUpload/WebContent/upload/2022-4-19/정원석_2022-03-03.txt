@@ -1,0 +1,134 @@
+오후 3시
+
+문제해결 시나리오
+
+
+
+
+서술형
+1. DCL명령어 DataContolLanguge 명령어 종류
+https://velog.io/@ansalstmd/SQL%ED%99%9C%EC%9A%A9%EA%B8%B0%EB%B3%B8SQL%EC%9E%91%EC%84%B1-DCL
+
+2. DML에서 사용하는 명령어 종류
+https://nov6th.tistory.com/13
+
+3. 트랜잭션? TCL에서 사용되는 명령어
+SQL활용 64page
+
+4. 데이터 딕셔너리(Date Dictionary) 용어, 종류
+SQL활용 8page
+
+5. view 만들기 특정테이블의 컬럼을 가져와서 view를 만들기
+6. view정의 및 view 사용 목적
+
+7. TCL에서 사용되는 명령어 설명
+
+커밋 전까지 메모리 버퍼에 저장이되며 커밋 후에는 실제 데이터베이스에 반영이 된다.
+8. SQL이란 무엇인지? SQL의 종류
+
+
+9. ALTER 구문? 역할
+
+
+
+서술형 출제 문제
+
+1.	DML (Data Manipulation Language)에서 사용하는 명령어의 종류에 대하여 예를 들어 서술하시오 (20점)    
+DML(Data Manipulation Language)
+데이터베이스에 들어있는 데이터를 조작할때 사용하는 언어
+
+
+
+데이터 조작어 4종류
+
+- SELECT :  데이터를 조회할때 사용한다.
+
+예시) SELECT*FROM 테이블명 --테이블의 모든 자료를 조회
+
+
+
+- INSERT : 데이터를 입력할 때 사용한다.
+
+예시) INSERT INTO 테이블명(컬럼1,컬럼2,컬럼3) VALUES(컬럼1의값, 컬럼2의값, 컬럼3의값);
+
+
+
+- UPDATE : 데이터 내용 변경 할 때 사용한다.
+
+예시) UPDATE 테이블면 SET 변경할 컬럼 = 변경할 데이터 WHERE 변경하고자 하는 조건(컬럼=조건데이터);
+
+
+
+- DELETE : 데이터 내용을 삭제할 때 사용한다.
+
+예시) DELETE FROM 테이블명 WHERE 삭제할 컬럼명 = 조건;
+
+2.	다음 MEMBER 테이블 중 ID, 이름, 직업만 조회 할 수 있는 VIEW를 생성하는 DDL문을 작성하시오. (45점)
+(생성하는 VIEW의 이름은 MEMBER_VIEW)
+
+create view MEMBER_VIEW
+as
+
+select ID,NAME,JOB
+
+from MEMBER;​
+
+
+
+
+
+
+
+
+3.	
+SQL (Structured Query Language)이란 무엇인지 서술하고 데이터베이스에서 사용되는 SQL의
+
+종류에 대하여 서술하시오 (35점)
+
+   
+SQL(Structured Qrery Language)
+데이터를 다루고 관리하는데 사용되는 데이터베이스 언어
+
+검색과 관리, 데이터베이스 스키마 생성과 수정,데이터베이스 객체 접근 조정 관리를 위해 고안되었다.
+
+
+
+​DQL(Data Query Language)
+
+RDBMS에 저장한 데이터를 원하는 방식으로 조회하는 명령어.
+
+
+
+DML(Data Manipulation Language)
+
+RDBMS 내 테이블의 데이터를 저장, 수정, 삭제하는 명령어.
+
+
+
+DDL(Data Definition Language)
+
+RDBMS 내 데이터의 관리를 위해 테이블을 포함한 여러 객체를 생성, 수정, 삭제하는 명령어
+
+
+
+TCL(Transaction Control Language) 
+
+트랜잭션 데이터의 영구 저장, 취소 등과 관련된 명령어.
+
+
+
+DCL(Data Control Language) 
+
+데이터 사용 권환과 관련된 명령어.
+
+
+
+
+
+
+
+
+
+
+
+
